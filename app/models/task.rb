@@ -1,5 +1,4 @@
-class ApplicationRecord < ActiveRecord::Base
-  primary_abstract_class
+class Task < ApplicationRecord
   validates :title, presence: true
   validates :details, presence: true
 end

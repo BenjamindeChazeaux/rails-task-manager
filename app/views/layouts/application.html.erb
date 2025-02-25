@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsTaskManager</title>
+    <title>Task Manager</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    
+    <script>
+      document.addEventListener('turbo:load', function() {
+        // Ajouter une classe au titre si la case est cochée
+        document.querySelectorAll('.task-checkbox').forEach(function(checkbox) {
+          const label = document.querySelector(`label[for="${checkbox.id}"]`);
+          if (checkbox.checked && label) {
+            label.classList.add('completed');
+          }
+        });
+      });
+    </script>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="main-container">
+      <%= yield %>
+    </div>
   </body>
 </html>

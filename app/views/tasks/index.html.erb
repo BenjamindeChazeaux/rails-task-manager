@@ -1,0 +1,39 @@
+<div class="container animate-fade-in">
+  <div class="card">
+    <div class="card-header">
+      <h1>My Tasks</h1>
+      <%= link_to "New Task", new_task_path, class: "btn btn-primary" %>
+    </div>
+    
+    <div class="task-list">
+      <% @tasks.each do |task| %>
+        <div class="task-item">
+          <div class="task-content">
+            <%= form_with(model: task, class: "checkbox-form", data: { remote: true }) do |f| %>
+              <%= f.check_box :completed, 
+                              class: "task-checkbox", 
+                              onchange: "this.form.submit()",
+                              id: "task-#{task.id}" %>
+              <%= f.label "task-#{task.id}", class: "task-title" do %>
+                <%= task.title %>
+              <% end %>
+            <% end %>
+            <p class="task-details"><%= task.details %></p>
+          </div>
+          
+          <div class="action-buttons">
+            <%= link_to edit_task_path(task), class: "action-btn" do %>
+              <i class="fas fa-edit"></i>
+            <% end %>
+            
+            <%= link_to task_path(task),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                class: "action-btn delete" do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
